@@ -1,2 +1,6 @@
 # leaderboard-system-js
-A leaderboard system/server in javascript
+A leaderboard server in javascript
+all data about users on the leaderboard is stored in a json file.
+You get the json by creating a GET request
+You can add to the leaderboard by creating a POST request, for example `{"name":"test","score":10}
+The server sorts the users by their score.
