@@ -22,7 +22,7 @@ server.on('request', (request, response) => {
         request.on('data', (chunk) => {
             body.push(chunk);
         }).on('end', () => {
-            if (body != null){
+            if (body != ''){
                 var bodyData = Buffer.concat(body);
                 var a = JSON.parse(bodyData);
                 jsonList.users[jsonList.users.length] = a
@@ -34,3 +34,7 @@ server.on('request', (request, response) => {
     } else response.write(JSON.stringify(jsonList));
     response.end();
 });
+
+server.on('error', function(e) {
+    console.log('ERROR: ' + e.message);
+  });
