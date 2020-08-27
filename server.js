@@ -4,7 +4,14 @@ let bodyData
 let rawdata = fs.readFileSync('example.json');
 let jsonList = JSON.parse(rawdata);
 
-
+function IsStringJSON(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
 function customfunction(a, b) 
 {
     return a.score < b.score ? 1 : -1;
@@ -24,10 +31,13 @@ server.on('request', (request, response) => {
         }).on('end', () => {
             if (body != ''){
                 var bodyData = Buffer.concat(body);
-                var a = JSON.parse(bodyData);
-                jsonList.users[jsonList.users.length] = a
-                let data3 = JSON.stringify(jsonList);
-                fs.writeFileSync('example.json', data3);
+                if (IsStringJSON(bodyData)){
+                    var a = JSON.parse(bodyData);
+                    jsonList.users[jsonList.users.length] = a
+                    let data3 = JSON.stringify(jsonList);
+                    fs.writeFileSync('example.json', data3);
+                    console.log('json')
+                }
             }
         });
         response.write('ok')
