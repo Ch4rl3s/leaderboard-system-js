@@ -25,9 +25,12 @@ server.on('request', (request, response) => {
                 try {
                     var a = JSON.parse(bodyData);
                     jsonList.users[jsonList.users.length] = a
+                    //console.log('json');
+                    data2 = eval(jsonList);
+                    results = data2['users'];
+                    results.sort(customfunction);
                     let data3 = JSON.stringify(jsonList);
                     fs.writeFileSync('example.json', data3);
-                    console.log('json');
                 } catch (error) {
                     console.log("Something went wrong: " + error);
                 }
