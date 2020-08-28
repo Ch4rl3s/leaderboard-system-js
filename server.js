@@ -14,8 +14,6 @@ server.on('request', (request, response) => {
     results.sort(customfunction);
     //console.log(request.method)
     if (request.method == 'POST') {
-
-
         let body = [];
         request.on('data', (chunk) => {
             body.push(chunk);
@@ -24,13 +22,16 @@ server.on('request', (request, response) => {
                 var bodyData = Buffer.concat(body);
                 try {
                     var a = JSON.parse(bodyData);
-                    jsonList.users[jsonList.users.length] = a
-                    //console.log('json');
-                    data2 = eval(jsonList);
-                    results = data2['users'];
-                    results.sort(customfunction);
-                    let data3 = JSON.stringify(jsonList);
-                    fs.writeFileSync('example.json', data3);
+                    //console.log(a)
+                    if (a["user"]!= null && a["score"]!=null){
+                        jsonList.users[jsonList.users.length] = a
+                        //console.log('valid json');
+                        data2 = eval(jsonList);
+                        results = data2['users'];
+                        results.sort(customfunction);
+                        let data3 = JSON.stringify(jsonList);
+                        fs.writeFileSync('example.json', data3);                       
+                    }
                 } catch (error) {
                     console.log("Something went wrong: " + error);
                 }
