@@ -19,13 +19,15 @@ server.on('request', (request, response) => {
             body.push(chunk);
         }).on('end', () => {
             if (body != '') {
-                var bodyData = Buffer.concat(body);
+                //console.log("body = "+body)
+                var base64 = Buffer.from(body.toString(), 'base64').toString('ascii');
+                //console.log("base 64 = " +base64)
                 try {
-                    var a = JSON.parse(bodyData);
+                    var a = JSON.parse(base64);
                     //console.log(a)
                     if (a["user"]!= null && a["score"]!=null){
                         jsonList.users[jsonList.users.length] = a
-                        //console.log('valid json');
+                        console.log('valid json');
                         data2 = eval(jsonList);
                         results = data2['users'];
                         results.sort(customfunction);

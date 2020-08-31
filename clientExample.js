@@ -17,5 +17,5 @@ callback = function(response) {
 }
   
 var req = http.request(options, callback);
-req.write('{"user":"client","score":10}');
+req.write(Buffer.from('{"user":"Base64client2","score":191}').toString('base64'));
 req.end();
